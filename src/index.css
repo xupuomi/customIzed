@@ -1,0 +1,211 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 
+  'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fafafc;
+  color: #777;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center content vertically */
+}
+
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.column-left {
+  flex: 35; /* Left column takes 4 parts */
+  padding: 25px;
+}
+
+.column-right {
+  flex: 65; /* Right column takes 6 parts */
+  padding: 25px;
+  align-items: center;
+  background-color: #DEDEDE;
+}
+
+.response-columns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  text-align: center;
+  
+}
+
+.right-column-inner {
+  display: flex;
+  height: 100%; 
+  flex-direction: column;
+  
+}
+
+.response-boxes-left,
+.response-boxes-right {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+}
+
+.response-boxes-left {
+  margin-right: 10px; 
+}
+
+.heading {
+  font-size: 25px;
+  font-weight: bold;
+  padding: 2px;
+  color: #2C2C2C;
+  margin-top: 15px;
+
+  font-family: 'IBM Plex Mono', monospace;
+  display: flex;
+  align-items: center; /* Center items vertically */
+}
+
+.title {
+  font-size: 60px;
+  font-weight: bold;
+  padding: 2px;
+  color: #2C2C2C;
+  margin-top: 15px;
+  font-family: 'IBM Plex Mono', monospace;
+  display: flex;
+  align-items: center; /* Center items vertically */
+}
+
+.title-text-section{
+  margin-top:5px;
+  margin-bottom:25px;
+  margin-left: 60px;
+  margin-right: 60px;
+}
+.main-page-text {
+  font-size: 14px;
+  font-weight: 400;
+  padding-bottom: 2px;
+  color: #2C2C2C;
+  text-align: center; /* Center items horizontally */
+  justify-content: center; /* Center text horizontally within the div */
+  
+}
+
+.bold {
+  font-weight: bold; /* Corrected property for bold text */
+  margin-left: -2px;
+  margin-right: 3px;
+}
+
+.subheading {
+  font-size: 20px;
+  font-style: italic;
+  padding-bottom: 5px;
+}
+.italics {
+  font-style: italic;
+  color:#4b4b4b;
+  font-weight: 550;
+  margin:-1px;
+}
+.box-label {
+  font-size: 13px;
+  font-weight: 400;
+  padding: 6px;
+}
+
+.text-boxes {
+  display: flex;
+  flex-direction: column;
+}
+
+.textarea {
+  width: 100%; /* Takes up full width of the column */
+  height: 50vh; /* Takes up half the viewport height */
+  border: solid 0.5px #cacaca;
+  border-radius: 6px;
+  padding: 13px 14px;
+  box-sizing: border-box;
+  overflow: hidden;
+  outline: none;
+  margin-bottom: 20px; /* Space between text boxes */
+}
+
+.small-textarea {
+  height: 20vh; 
+}
+
+.url {
+  height: 5vh;
+}
+
+.textarea::placeholder, .small-textarea::placeholder, .url::placeholder {
+  color: #a8a8a8;
+  font-weight: 200;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-text p {
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 350;
+  margin:auto;
+}
+
+.action-button { 
+  background-color: #2C2C2C;
+  color: #ffffff;
+  border: solid 0.5px #cacaca;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 140px; 
+  height: 43px;
+  margin: 9px;
+}
+
+.action-button:hover {
+  background-color: #545454;
+}
+
+.action-button:active {
+  background-color: #656565;
+}
+
+.response-box-container {
+  height: 90vh; /* Ensure it fits the column height */
+  overflow-wrap: break-word;
+}
+
+.response-box {
+  padding-top: 20px;
+  padding: 15px;
+  width: 45vh; /* Adjust as needed */
+  height: 80vh;
+  border: 0.5px solid #cacaca;
+  background-color: #fff;
+  border-radius: 4px;
+  margin-top: 6px;
+  margin-left: 15px;
+  color: #777;
+  overflow-wrap: break-word;
+  word-wrap: break-word; /* Handles continuous text */
+  word-break: break-word; /* Forces word breaks */
+  overflow: hidden; /* Hides overflow content */
+  text-overflow: ellipsis;
+}
+
+
