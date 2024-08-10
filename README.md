@@ -10,9 +10,9 @@ Some functionality includes:
    
 2. Get your personal Gemini API key by visiting https://aistudio.google.com/app/apikey and edit the .env file to set `GOOGLE_GEN_AI_KEY = YOUR_API_KEY`
 
-3. Install the following dependencies: `npm i express cors dotenv @google-generativeai`
+3. Install the following dependencies:```npm i express cors dotenv @google-generativeai```
    
 ## Run
-First run `npm run start:frontend` and then run `npm run start:backend`
+First run ```npm run start:frontend``` and then run ```npm run start:backend```
 
 _Enjoy your customized email!_
