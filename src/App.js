@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from 'react';
 import './index.css';
 import main from './main-logo.png';
@@ -12,13 +11,17 @@ const App = () => {
   const [error, setError] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [showResponses, setShowResponses] = useState(false);
+  const [selectedResponse, setSelectedResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const getResponse = async () => {
-    if (!value) {
-      setError("Error! Please ask a question!");
+  const getResponse = async (isRegeneration = false) => {
+    if (!value && !name && !recipientInfo && !isRegeneration) {
+      setError("Error! Please enter all required fields!");
       return;
     }
+
     try {
+      setLoading(true);
       const options = {
         method: 'POST',
         body: JSON.stringify({
@@ -26,7 +29,8 @@ const App = () => {
           message: value,
           name: name,
           recipientInfo: recipientInfo,
-          additionalInfo: additionalInfo
+          additionalInfo: additionalInfo,
+          selectedResponse: selectedResponse
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +39,7 @@ const App = () => {
       const response = await fetch('http://localhost:8000/gemini', options);
       const data = await response.json();
       console.log("Response data", data);
-      
+
       setChatHistory((oldChatHistory) => [
         ...oldChatHistory,
         {
@@ -52,91 +56,101 @@ const App = () => {
         },
       ]);
       setShowResponses(true);
-      setValue("");
+      setSelectedResponse(null);
     } catch (error) {
       console.error(error);
       setError("Something went wrong! Please try again.");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleResponseClick = (index) => {
+    setSelectedResponse(index);
   };
 
   const clear = () => {
     setValue("");
     setrecipientInfo("");
+    setName("");
     setError("");
     setInfo("");
     setChatHistory([]);
     setShowResponses(false);
+    setSelectedResponse(null);
   };
 
   return (
     <div className="container">
+      <LeftColumn
+        value={value}
+        setValue={setValue}
+        name={name}
+        setName={setName}
+        recipientInfo={recipientInfo}
+        setrecipientInfo={setrecipientInfo}
+        additionalInfo={additionalInfo}
+        setInfo={setInfo}
+      />
       {!showResponses ? (
         <>
-          <LeftColumn 
-            value={value}
-            setValue={setValue}
-            name={name}
-            setName={setName}
-            recipientInfo={recipientInfo}
-            setrecipientInfo={setrecipientInfo}
-            additionalInfo={additionalInfo}
-            setInfo={setInfo}
-          />
           <div className="column-right info-text">
             <img src={main} alt="main title" style={{ width: '530px', height: 'auto' }} />
-            <div className='title-text-section'>
-              <div className='main-page-text'>
-                1. Paste your email template and insert <span className="bold">[fill in here + </span> <span className="italics">topic</span> <span className="bold">]</span>
-                where you need customization
-              </div>
-              <div className='main-page-text'>
-                2. Paste the recipient's name
-              </div>
-              <div className='main-page-text'>
-                3. Paste the background information about the recipient
-              </div>
-              <div className='main-page-text'>
-                4. <span className="italics">(Optional)</span> Add any extra details you'd like highlighted in the message
-              </div>
-            </div>
-            {!error && <button className="action-button" onClick={getResponse}>Generate</button>}
-            {error && <button className="action-button" onClick={clear}>Clear</button>}
-            {error && <p>{error}</p>}
+            {!loading ? (
+              <>
+                <div className='title-text-section'>
+                  <div className='main-page-text'>
+                    1. Paste your email template and insert <span className="bold">[fill in here + </span> <span className="italics">topic</span> <span className="bold">]</span>
+                    where you need customization
+                  </div>
+                  <div className='main-page-text'>
+                    2. Paste the recipient's name and role
+                  </div>
+                  <div className='main-page-text'>
+                    3. Paste the background information about the recipient
+                  </div>
+                  <div className='main-page-text'>
+                    4. <span className="italics">(Optional)</span> Add any extra details you'd like highlighted in the message
+                  </div>
+                </div>
+                {!error && <button className="action-button" onClick={() => getResponse()}>Generate</button>}
+                {error && <button className="action-button" onClick={clear}>Clear</button>}
+                {error && <div className='extra-text'>{error}</div>}
+              </>
+            ) : (
+              <div className="loading">Loading...</div>
+            )}
           </div>
+
         </>
       ) : (
         <>
-          <LeftColumn 
-            value={value}
-            setValue={setValue}
-            name={name}
-            setName={setName}
-            recipientInfo={recipientInfo}
-            setrecipientInfo={setrecipientInfo}
-            additionalInfo={additionalInfo}
-            setInfo={setInfo}
-          />
           <div className="column-right info-text">
-            <div className="response-columns">
-              <div className="column-left-inner">
-                {chatHistory.filter(chatItem => chatItem.role === "model").slice(-2, -1).map((chatItem, _index) => (
-                  <div key={_index} className="response-box">
-                    <p className="answer">{chatItem.parts[0].text}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="column-right-inner">
-                {chatHistory.filter(chatItem => chatItem.role === "model").slice(-1).map((chatItem, _index) => (
-                  <div key={_index} className="response-box">
-                    <p className="answer">{chatItem.parts[0].text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="buttons">
-                {!error && <button className="action-button" onClick={getResponse}>Generate</button>}
-                <button className="action-button" onClick={clear}>Clear</button>
-              </div>
+            {!loading ? (
+              <>
+                <div className="response-columns">
+                  {chatHistory.filter(chatItem => chatItem.role === "model").slice(-2).map((chatItem, index) => (
+                    <div
+                      key={index}
+                      className={`response-box ${selectedResponse === index ? 'selected' : ''}`}
+                      onClick={() => handleResponseClick(index)}
+                    >
+                      <p className="answer">{chatItem.parts[0].text}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className='extra-text'>
+                  If you find a response you like, select it and click "Regenerate" to generate two new, similar responses.
+                </div>
+                <div className="buttons">
+                  {!error && <button className="action-button" onClick={() => getResponse(true)}>Regenerate</button>}
+                  <button className="action-button" onClick={clear}>Clear</button>
+                </div>
+              </>
+            ) : (
+              <div className="loading">Loading...</div>
+            )}
+
           </div>
         </>
       )}
@@ -145,3 +159,5 @@ const App = () => {
 };
 
 export default App;
+
+

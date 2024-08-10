@@ -16,26 +16,28 @@ app.post('/gemini', async (req, res) => {
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
   const chat = model.startChat({ history });
 
-  const basePrompt = `Your goal is to customize the given mass email template by adding information tailored to the recipient. 
-  The recipient's name is ` + name + `. Figure out whether they are an individual or a company and write the email accordingly
-  Here is the information about the recipient: ` + recipientInfo + `Using this information, tailor the missing chunks of the email to 
-  highlight the specific qualities of the recipient that makes them a good fit for the goal of my email. With the recipient information,
-  show a good understanding of and point out specific things about their background, values, skillset, accomplishments, and vision 
-  for the future. Additionally, make sure to mention ` + additionalInfo + `Ensure the final product shows that you care about the recipient 
-  and their passions. You are an expert at providing clear, concise, thoughtful, and genuine professional communication. 
-  Your writing skills are exceptional, enabling you to craft messages that are not only well-structured but also engaging 
-  and impactful. You excel at conveying interest and admiration for the recipient, ensuring they feel valued and appreciated.
-  Through your communication, you consistently build positive and meaningful connections, leaving a lasting impression on 
-  the recipient. When you add your section, maintain the same tone and writing style as the provided template. In the locations
-  marked with [fill in here], craft a thoughtful message given the recipient's information I gave earlier and the specific 
-  instructions within the encompassing square brackets. For example, if the template includes [fill in here: Mention that she is 
-  an alumni of our school], follow the instruction 'Mention that she is an alumni of our school' in that specific section.
-  Ensure each section is a maximum of 5 lines, unless explicitly stated otherwise (such as 'create an email template'),
-  which would require a longer response. Additionally, fill in any obvious placeholders in the template, such as [Recipient Name], and any other similar parts.`;
+  const basePrompt = 
+  ` You are a professional when it comes to customizing and completing email templates. Your goal is to customize the given mass email template 
+    by adding information tailored to the recipient. You excel at conveying interest and admiration for the recipient, ensuring they feel valued
+    and appreciated. Through your communication, you consistently build positive and meaningful connections, leaving a lasting impression on 
+    the recipient. You use normal language that makes it sounds like a human wrote it, without robust vocabulary.
+    The recipient's name is ${name}. Address them using honorifics when saying hello. Here is the information about the recipient: ${recipientInfo}. 
+    Additional information to consider: ${additionalInfo}.
+    
+    Below is the email template that needs to be filled in. Ensure you maintain the same tone and writing style as the template:
+    
+    ${message}
+    
+    Please fill in all placeholders such as [fill in here] with relevant and specific information based on the recipient's profile.
+    Ensure it logically makes sense and tie each line back to the purpose. Add a maximum of 4 sentences, unless requested otherwise.
+    Show a good understanding of and point out specific things about their background, values, skillset, accomplishments, and vision 
+    for the future. Do not leave any placeholders or blanks in the final output. Each completed section should be professional, clear, 
+    concise, and directly relevant to the recipient's background and the purpose of the email. Maintain the same formatting, line breaks, 
+    and layout. Return the new template.`;
 
-  const uniqueVer = `In each of the chunks with “fill in here”, fill it in uniquely, highlighting our deep knowledge of the [name]’s endeavors, 
-  but in a fitting, professional manner. This chunk should make sure the email stands out amongst the sea of emails but still match the same 
-  tone and writing style as the provided template. `;
+  const uniqueVer = `In each of the chunks where you are filling in information, fill it in uniquely, highlighting our deep knowledge of the 
+  [name]’s endeavors, but in a fitting, professional manner. This chunk should make sure the email stands out but still match the same 
+  tone and writing style as the provided template.`;
   
   const combinedMessage1 = basePrompt;
   const combinedMessage2 = basePrompt + uniqueVer;
