@@ -37,7 +37,6 @@ body {
   justify-content: space-between;
   align-items: center; 
   text-align: center;
-  
 }
 
 .right-column-inner {
@@ -95,7 +94,6 @@ body {
   color: #2C2C2C;
   text-align: center; /* Center items horizontally */
   justify-content: center; /* Center text horizontally within the div */
-  
 }
 
 .bold {
@@ -133,7 +131,7 @@ body {
   border-radius: 6px;
   padding: 13px 14px;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-y: scroll;
   outline: none;
   margin-bottom: 20px; /* Space between text boxes */
 }
@@ -159,7 +157,7 @@ body {
 }
 
 .info-text p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
   font-weight: 350;
   margin:auto;
@@ -174,7 +172,8 @@ body {
   cursor: pointer;
   width: 140px; 
   height: 43px;
-  margin: 9px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .action-button:hover {
@@ -193,19 +192,37 @@ body {
 .response-box {
   padding-top: 20px;
   padding: 15px;
-  width: 45vh; /* Adjust as needed */
-  height: 80vh;
+  width: 45vh; 
+  height: 72vh;
   border: 0.5px solid #cacaca;
   background-color: #fff;
   border-radius: 4px;
   margin-top: 6px;
   margin-left: 15px;
-  color: #777;
-  overflow-wrap: break-word;
-  word-wrap: break-word; /* Handles continuous text */
-  word-break: break-word; /* Forces word breaks */
-  overflow: hidden; /* Hides overflow content */
-  text-overflow: ellipsis;
+  color: #2C2C2C;
+  overflow: scroll;
 }
 
+.selected {
+  border: 1px solid yellow;
+}
 
+.loading {
+  font-style: italic;
+  color:#4b4b4b;
+  font-weight: 400;
+  justify-content: space-between;
+  align-items: center; 
+  text-align: center;
+}
+
+.extra-text{
+  font-style: italic;
+  color:#4b4b4b;
+  font-weight: 400;
+  justify-content: space-between;
+  align-items: center; 
+  text-align: center;
+  margin: 15px;
+  font-size: 12px;
+}

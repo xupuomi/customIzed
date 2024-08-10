@@ -16,7 +16,7 @@ const LeftColumn = ({ value, setValue, name, setName, recipientInfo, setrecipien
         placeholder="Type here"
         onChange={(e) => setValue(e.target.value)}
       />
-      <div className="box-label">Recipient Name<span style={{ color: 'red' }}>*</span></div>
+      <div className="box-label">Recipient Name and Role<span style={{ color: 'red' }}>*</span></div>
       <textarea
         className="textarea url"
         value={name}
