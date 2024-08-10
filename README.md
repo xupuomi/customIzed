@@ -15,4 +15,4 @@ Some functionality includes:
 ## Run
 First run ```npm run start:frontend``` and then run ```npm run start:backend```
 
-_Enjoy your customized email!_
+***Enjoy your customized email!***
