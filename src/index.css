@@ -202,6 +202,9 @@ body {
   color: #2C2C2C;
   overflow: scroll;
 }
+.buttons {
+  display: flex;
+}
 
 .selected {
   border: 1px solid yellow;
