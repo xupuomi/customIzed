@@ -15,7 +15,7 @@ const App = () => {
   const [loading, setLoading] = useState(false);
 
   const getResponse = async (isRegeneration = false) => {
-    if (!value && !name && !recipientInfo && !isRegeneration) {
+    if ((!value || !name || !recipientInfo) && !isRegeneration) {
       setError("Error! Please enter all required fields!");
       return;
     }
@@ -113,8 +113,11 @@ const App = () => {
                     4. <span className="italics">(Optional)</span> Add any extra details you'd like highlighted in the message
                   </div>
                 </div>
-                {!error && <button className="action-button" onClick={() => getResponse()}>Generate</button>}
-                {error && <button className="action-button" onClick={clear}>Clear</button>}
+                <div className='buttons'>
+                {<button className="action-button" onClick={() => getResponse()}>Generate</button>}
+                {<button className="action-button" onClick={clear}>Clear</button>}
+                
+                </div> 
                 {error && <div className='extra-text'>{error}</div>}
               </>
             ) : (
