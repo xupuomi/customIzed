@@ -16,3 +16,6 @@ Some functionality includes:
 First run ```npm run start:frontend``` and then run ```npm run start:backend```
 
 ***Enjoy your customized email!***
+
+
+_Here is the mockup: https://www.figma.com/design/VZiGLAs6Mz2M92cGgLVNsb/customIzed?node-id=0-1&t=V6esf7fP11ZOvspj-1_ 
