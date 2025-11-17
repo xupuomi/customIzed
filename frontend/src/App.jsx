@@ -81,6 +81,7 @@ const App = () => {
     setName("");
     setError("");
     setInfo("");
+    setWebsiteURL("");
     setChatHistory([]);
     setShowResponses(false);
     setSelectedResponse(null);
