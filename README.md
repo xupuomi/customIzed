@@ -22,4 +22,4 @@ Then run ```cd backend``` and ```node server.js```
 
 _Here is the mockup: https://www.figma.com/design/VZiGLAs6Mz2M92cGgLVNsb/customIzed?node-id=0-1&t=V6esf7fP11ZOvspj-1_ 
 
-![Demo Screenshot](./public/sample.png)
+![Demo Screenshot](frontend/public/sample.png)
